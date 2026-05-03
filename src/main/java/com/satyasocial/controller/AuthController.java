@@ -67,4 +67,20 @@ public class AuthController {
             "verified", true
         ));
     }
+
+    // TEST ONLY — Remove before production
+    @PostMapping("/register/test")
+    public ResponseEntity<?> registerTest(@RequestBody RegisterRequest request) {
+        try {
+            String token = authService.registerTest(request);
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "token", token,
+                    "message", "Test registration successful"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("success", false, "error", e.getMessage()));
+        }
+    }
 }

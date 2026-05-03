@@ -108,4 +108,35 @@ public class AuthService {
             throw new RuntimeException("Hashing failed", e);
         }
     }
+    // TEST ONLY — Remove before production
+    public String registerTest(RegisterRequest request) {
+
+        String panHash = hashPan(request.getPan());
+
+        if (userRepository.existsByPanHash(panHash)) {
+            throw new IllegalStateException(
+                    "An account already exists with this PAN number"
+            );
+        }
+
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new IllegalStateException("Username already taken");
+        }
+
+        User user = User.builder()
+                .panHash(panHash)
+                .fullName("Test User " + request.getUsername())
+                .username(request.getUsername())
+                .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .state(request.getState())
+                .ageBracket(request.getAgeBracket())
+                .gender(request.getGender())
+                .isPanVerified(false) // Not verified in test mode
+                .isActive(true)
+                .build();
+
+        userRepository.save(user);
+
+        return jwtService.generateToken(user);
+    }
 }
