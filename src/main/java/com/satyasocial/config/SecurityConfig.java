@@ -37,6 +37,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/posts/explore").permitAll()
                         .requestMatchers("/api/users/*/profile").permitAll()
+                        .requestMatchers("/api/search/**").permitAll()
+                        .requestMatchers("/api/users/*/profile").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter,
