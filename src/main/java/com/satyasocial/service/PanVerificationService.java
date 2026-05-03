@@ -27,6 +27,7 @@ public class PanVerificationService {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
+
     public String verifyAndGetName(String pan) {
         try {
             log.info("Calling Setu PAN API with clientId: {} productInstanceId: {}",
@@ -46,7 +47,6 @@ public class PanVerificationService {
                     .retrieve()
                     .bodyToMono(Map.class)
                     .block();
-
             if (response == null) {
                 throw new RuntimeException("Empty response from PAN verification");
             }
