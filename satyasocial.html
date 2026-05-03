@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SatyaSocial — Verified India</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6B00;
+    --saffron-light: #FF8C38;
+    --saffron-glow: rgba(255, 107, 0, 0.15);
+    --green: #0D7A3E;
+    --green-light: #10A050;
+    --navy: #0A0F1E;
+    --navy-card: #0F1628;
+    --navy-border: #1A2340;
+    --navy-hover: #162035;
+    --white: #F0F4FF;
+    --white-dim: rgba(240, 244, 255, 0.6);
+    --white-faint: rgba(240, 244, 255, 0.1);
+    --verified: #FF6B00;
+    --text: #E8EEFF;
+    --text-muted: #7A8AAD;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(255,107,0,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(13,122,62,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* AUTH SCREEN */
+  #auth-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .auth-container {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .logo-mark {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .logo-symbol {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .logo-chakra {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--saffron);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .logo-chakra::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--saffron);
+    border-radius: 50%;
+  }
+
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text span:first-child { color: var(--saffron); }
+  .logo-text span:last-child { color: var(--white); }
+
+  .logo-tagline {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .auth-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--saffron), var(--green));
+  }
+
+  .auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    background: var(--white-faint);
+    border-radius: 8px;
+    padding: 3px;
+  }
+
+  .auth-tab {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .auth-tab.active {
+    background: var(--saffron);
+    color: white;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: var(--white-faint);
+    border: 1px solid var(--navy-border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--saffron);
+    background: rgba(255,107,0,0.05);
+  }
+
+  .form-group select option {
+    background: var(--navy-card);
+    color: var(--text);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--saffron);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-primary:hover {
+    background: var(--saffron-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .pan-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    background: rgba(13, 122, 62, 0.1);
+    border: 1px solid rgba(13, 122, 62, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: #4CAF80;
+    line-height: 1.4;
+  }
+
+  .error-msg {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.82rem;
+    color: #FF6B6B;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  /* MAIN APP */
+  #main-app {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* TOP NAV */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--navy-border);
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span:first-child { color: var(--saffron); }
+  .nav-logo span:last-child { color: var(--white); }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .nav-tab {
+    padding: 0.4rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-tab.active {
+    background: var(--saffron-glow);
+    color: var(--saffron);
+  }
+
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .nav-avatar {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--saffron), var(--green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .nav-username {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--white-dim);
+  }
+
+  .btn-logout {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--navy-border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-logout:hover {
+    border-color: var(--saffron);
+    color: var(--saffron);
+  }
+
+  /* LAYOUT */
+  .app-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr 260px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* LEFT SIDEBAR */
+  .sidebar-left {
+    position: sticky;
+    top: 76px;
+  }
+
+  .profile-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-avatar-lg {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--saffron), var(--green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+
+  .profile-username {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(255, 107, 0, 0.1);
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    border-radius: 20px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--saffron);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .verified-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--saffron);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .stat-box {
+    background: var(--white-faint);
+    border-radius: 8px;
+    padding: 0.6rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--saffron);
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .profile-meta {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .meta-item span:first-child {
+    font-size: 0.85rem;
+  }
+
+  /* MAIN FEED */
+  .feed-area {
+    min-height: 80vh;
+  }
+
+  /* COMPOSE */
+  .compose-box {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .compose-box:focus-within {
+    border-color: rgba(255, 107, 0, 0.4);
+  }
+
+  .compose-top {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .compose-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--saffron), var(--green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .compose-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    resize: none;
+    outline: none;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+
+  .compose-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .compose-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--navy-border);
+  }
+
+  .char-count {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .char-count.warning { color: #FF9500; }
+  .char-count.danger { color: #FF3B30; }
+
+  .btn-post {
+    padding: 0.5rem 1.25rem;
+    background: var(--saffron);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-post:hover {
+    background: var(--saffron-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-post:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* FEED TABS */
+  .feed-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1rem;
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 12px;
+    padding: 4px;
+  }
+
+  .feed-tab {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .feed-tab.active {
+    background: var(--saffron);
+    color: white;
+  }
+
+  /* POST CARD */
+  .post-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .post-card:hover {
+    border-color: rgba(255, 107, 0, 0.2);
+    background: var(--navy-hover);
+  }
+
+  .post-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-avatar {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--saffron), var(--green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .post-user-info {
+    flex: 1;
+  }
+
+  .post-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .post-verified-icon {
+    width: 14px;
+    height: 14px;
+    background: var(--saffron);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: white;
+    font-weight: 700;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
+  }
+
+  .post-username {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .post-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .tag-state {
+    background: rgba(13, 122, 62, 0.15);
+    color: #4CAF80;
+    border: 1px solid rgba(13, 122, 62, 0.2);
+  }
+
+  .tag-age {
+    background: rgba(255, 107, 0, 0.1);
+    color: var(--saffron-light);
+    border: 1px solid rgba(255, 107, 0, 0.15);
+  }
+
+  .tag-gender {
+    background: rgba(100, 140, 255, 0.1);
+    color: #8AABFF;
+    border: 1px solid rgba(100, 140, 255, 0.15);
+  }
+
+  .post-time {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  .post-content {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    word-break: break-word;
+  }
+
+  .post-content .hashtag {
+    color: var(--saffron);
+    font-weight: 500;
+  }
+
+  .post-actions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--navy-border);
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .action-btn:hover {
+    background: var(--saffron-glow);
+    color: var(--saffron);
+  }
+
+  /* RIGHT SIDEBAR */
+  .sidebar-right {
+    position: sticky;
+    top: 76px;
+  }
+
+  .sidebar-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .truth-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--navy-border);
+  }
+
+  .truth-stat:last-child { border-bottom: none; }
+
+  .truth-stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .truth-stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--saffron);
+  }
+
+  .india-flag {
+    display: flex;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .flag-saffron { flex: 1; background: #FF9933; }
+  .flag-white { flex: 1; background: white; }
+  .flag-green { flex: 1; background: #138808; }
+
+  /* LOADING */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--navy-border);
+    border-top-color: var(--saffron);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 0.5rem;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+  }
+
+  .empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.5;
+  }
+
+  .empty-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white-dim);
+    margin-bottom: 0.3rem;
+  }
+
+  .empty-sub {
+    font-size: 0.78rem;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--navy-card);
+    border: 1px solid var(--navy-border);
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    z-index: 1000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    max-width: 320px;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .toast.success { border-left: 3px solid var(--green); }
+  .toast.error { border-left: 3px solid #FF3B30; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .app-layout {
+      grid-template-columns: 1fr;
+    }
+    .sidebar-left, .sidebar-right {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-container">
+    <div class="logo-mark">
+      <div class="logo-symbol">
+        <div class="logo-chakra">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="6" y2="12"/>
+            <line x1="18" y1="12" x2="22" y2="12"/>
+            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/>
+            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
+            <line x1="19.07" y1="4.93" x2="16.24" y2="7.76"/>
+            <line x1="7.76" y1="16.24" x2="4.93" y2="19.07"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span>Satya</span><span>Social</span>
+        </div>
+      </div>
+      <div class="logo-tagline">Every voice. Verified. Real.</div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="login-form">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="login-username" placeholder="your_username" autocomplete="username"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+        <div class="error-msg" id="login-error"></div>
+        <button class="btn-primary" onclick="login()">Sign In →</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="register-form" style="display:none">
+        <div class="form-group">
+          <label>PAN Number</label>
+          <input type="text" id="reg-pan" placeholder="ABCDE1234F" style="text-transform:uppercase"/>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="reg-username" placeholder="choose_username"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="min 6 characters"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>State</label>
+            <select id="reg-state">
+              <option value="">Select</option>
+              <option>Andhra Pradesh</option><option>Assam</option>
+              <option>Bihar</option><option>Delhi</option>
+              <option>Goa</option><option>Gujarat</option>
+              <option>Haryana</option><option>Himachal Pradesh</option>
+              <option>Jharkhand</option><option>Karnataka</option>
+              <option>Kerala</option><option>Madhya Pradesh</option>
+              <option>Maharashtra</option><option>Manipur</option>
+              <option>Meghalaya</option><option>Mizoram</option>
+              <option>Nagaland</option><option>Odisha</option>
+              <option>Punjab</option><option>Rajasthan</option>
+              <option>Sikkim</option><option>Tamil Nadu</option>
+              <option>Telangana</option><option>Tripura</option>
+              <option>Uttar Pradesh</option><option>Uttarakhand</option>
+              <option>West Bengal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Age Bracket</label>
+            <select id="reg-age">
+              <option value="">Select</option>
+              <option>18-25</option>
+              <option>26-35</option>
+              <option>36-50</option>
+              <option>50+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="reg-gender">
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="error-msg" id="register-error"></div>
+        <button class="btn-primary" onclick="register()">Verify PAN & Register →</button>
+        <div class="pan-note">
+          🔒 Your PAN is verified with NSDL and never stored. Only a secure hash is kept. One PAN = One Account.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app">
+  <!-- TOP NAV -->
+  <nav class="topnav">
+    <div class="nav-logo"><span>Satya</span><span>Social</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchFeed('feed')">Feed</button>
+      <button class="nav-tab" onclick="switchFeed('explore')">Explore</button>
+    </div>
+    <div class="nav-user">
+      <div class="nav-avatar" id="nav-avatar-text">A</div>
+      <span class="nav-username" id="nav-username-text">@user</span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-left">
+      <div class="profile-card">
+        <div class="profile-avatar-lg" id="profile-avatar-lg">A</div>
+        <div class="profile-name" id="profile-full-name">User Name</div>
+        <div class="profile-username" id="profile-username-display">@username</div>
+        <div class="verified-badge">
+          <div class="verified-dot"></div>
+          PAN Verified
+        </div>
+        <div class="profile-stats">
+          <div class="stat-box">
+            <div class="stat-number" id="stat-followers">0</div>
+            <div class="stat-label">Followers</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="stat-following">0</div>
+            <div class="stat-label">Following</div>
+          </div>
+        </div>
+        <div class="profile-meta">
+          <div class="meta-item"><span>📍</span> <span id="profile-state">—</span></div>
+          <div class="meta-item"><span>👤</span> <span id="profile-age">—</span></div>
+          <div class="meta-item"><span>⚡</span> <span id="profile-gender">—</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN FEED -->
+    <main class="feed-area">
+      <!-- COMPOSE -->
+      <div class="compose-box">
+        <div class="compose-top">
+          <div class="compose-avatar" id="compose-avatar">A</div>
+          <textarea class="compose-input" id="compose-text"
+            placeholder="What's happening in India today?"
+            maxlength="280"
+            oninput="updateCharCount()"></textarea>
+        </div>
+        <div class="compose-footer">
+          <span class="char-count" id="char-count">280</span>
+          <button class="btn-post" onclick="createPost()" id="post-btn">Post</button>
+        </div>
+      </div>
+
+      <!-- FEED TABS -->
+      <div class="feed-tabs">
+        <button class="feed-tab active" id="tab-feed" onclick="switchFeed('feed')">My Feed</button>
+        <button class="feed-tab" id="tab-explore" onclick="switchFeed('explore')">Explore India</button>
+      </div>
+
+      <!-- POSTS -->
+      <div id="posts-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          Loading posts...
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar-right">
+      <div class="sidebar-card">
+        <div class="india-flag">
+          <div class="flag-saffron"></div>
+          <div class="flag-white"></div>
+          <div class="flag-green"></div>
+        </div>
+        <div class="sidebar-title">Platform Stats</div>
+        <div class="truth-stat">
+          <span class="truth-stat-label">Verified Users</span>
+          <span class="truth-stat-value">Real</span>
+        </div>
+        <div class="truth-stat">
+          <span class="truth-stat-label">Fake Accounts</span>
+          <span class="truth-stat-value">Zero</span>
+        </div>
+        <div class="truth-stat">
+          <span class="truth-stat-label">Bot Posts</span>
+          <span class="truth-stat-value">Impossible</span>
+        </div>
+        <div class="truth-stat">
+          <span class="truth-stat-label">PAN Verified</span>
+          <span class="truth-stat-value">100%</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Why SatyaSocial?</div>
+        <p style="font-size:0.78rem; color: var(--text-muted); line-height: 1.6;">
+          Every voice here belongs to a real, verified Indian citizen.
+          No bots. No fake followers. No manufactured trends.
+          <br><br>
+          <strong style="color: var(--saffron);">One PAN. One Account. One Vote.</strong>
+        </p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  const API = 'http://localhost:8080';
+  let token = localStorage.getItem('ss_token');
+  let currentUser = JSON.parse(localStorage.getItem('ss_user') || 'null');
+  let currentFeed = 'feed';
+
+  // Init
+  if (token && currentUser) {
+    showApp();
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+    });
+    document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+  }
+
+  async function login() {
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    errEl.style.display = 'none';
+
+    if (!username || !password) {
+      showError(errEl, 'Please fill all fields');
+      return;
+    }
+
+    const btn = document.querySelector('#login-form .btn-primary');
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    try {
+      const res = await fetch(`${API}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        token = data.token;
+        localStorage.setItem('ss_token', token);
+        await loadProfile(username);
+        showApp();
+        showToast('Welcome back! 🎉', 'success');
+      } else {
+        showError(errEl, data.error || 'Login failed');
+      }
+    } catch (e) {
+      showError(errEl, 'Cannot connect to server. Is it running?');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Sign In →';
+  }
+
+  async function register() {
+    const pan = document.getElementById('reg-pan').value.trim().toUpperCase();
+    const username = document.getElementById('reg-username').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const state = document.getElementById('reg-state').value;
+    const ageBracket = document.getElementById('reg-age').value;
+    const gender = document.getElementById('reg-gender').value;
+    const errEl = document.getElementById('register-error');
+    errEl.style.display = 'none';
+
+    if (!pan || !username || !password || !state || !ageBracket || !gender) {
+      showError(errEl, 'Please fill all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      showError(errEl, 'Password must be at least 6 characters');
+      return;
+    }
+
+    const btn = document.querySelector('#register-form .btn-primary');
+    btn.disabled = true;
+    btn.textContent = 'Verifying PAN...';
+
+    try {
+      const res = await fetch(`${API}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pan, username, password, state, ageBracket, gender })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        token = data.token;
+        localStorage.setItem('ss_token', token);
+        await loadProfile(username);
+        showApp();
+        showToast('Welcome to SatyaSocial! Your identity is verified ✓', 'success');
+      } else {
+        showError(errEl, data.error || 'Registration failed');
+      }
+    } catch (e) {
+      showError(errEl, 'Cannot connect to server. Is it running?');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Verify PAN & Register →';
+  }
+
+  async function loadProfile(username) {
+    try {
+      const res = await fetch(`${API}/api/users/${username}/profile`);
+      const data = await res.json();
+      if (data.success) {
+        currentUser = data.profile;
+        localStorage.setItem('ss_user', JSON.stringify(currentUser));
+      }
+    } catch (e) {}
+  }
+
+  function showApp() {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+
+    if (currentUser) {
+      const initial = (currentUser.username || 'U')[0].toUpperCase();
+      document.getElementById('nav-avatar-text').textContent = initial;
+      document.getElementById('nav-username-text').textContent = '@' + currentUser.username;
+      document.getElementById('profile-avatar-lg').textContent = initial;
+      document.getElementById('compose-avatar').textContent = initial;
+      document.getElementById('profile-full-name').textContent = currentUser.fullName || currentUser.username;
+      document.getElementById('profile-username-display').textContent = '@' + currentUser.username;
+      document.getElementById('profile-state').textContent = currentUser.state || '—';
+      document.getElementById('profile-age').textContent = currentUser.ageBracket || '—';
+      document.getElementById('profile-gender').textContent = currentUser.gender || '—';
+      document.getElementById('stat-followers').textContent = currentUser.followerCount || 0;
+      document.getElementById('stat-following').textContent = currentUser.followingCount || 0;
+    }
+
+    loadPosts();
+  }
+
+  function logout() {
+    token = null;
+    currentUser = null;
+    localStorage.removeItem('ss_token');
+    localStorage.removeItem('ss_user');
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('main-app').style.display = 'none';
+  }
+
+  function switchFeed(type) {
+    currentFeed = type;
+    document.getElementById('tab-feed').classList.toggle('active', type === 'feed');
+    document.getElementById('tab-explore').classList.toggle('active', type === 'explore');
+    document.querySelectorAll('.nav-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && type === 'feed') || (i === 1 && type === 'explore'));
+    });
+    loadPosts();
+  }
+
+  async function loadPosts() {
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading posts...</div>';
+
+    try {
+      const url = currentFeed === 'explore'
+        ? `${API}/api/posts/explore`
+        : `${API}/api/posts/feed`;
+
+      const headers = currentFeed === 'feed'
+        ? { 'Authorization': `Bearer ${token}` }
+        : {};
+
+      const res = await fetch(url, { headers });
+      const data = await res.json();
+
+      if (data.success && data.posts) {
+        if (data.posts.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">${currentFeed === 'feed' ? '👥' : '🌏'}</div>
+              <div class="empty-title">${currentFeed === 'feed' ? 'Your feed is empty' : 'No posts yet'}</div>
+              <div class="empty-sub">${currentFeed === 'feed' ? 'Follow people to see their posts here' : 'Be the first to post!'}</div>
+            </div>`;
+        } else {
+          container.innerHTML = data.posts.map(renderPost).join('');
+        }
+      }
+    } catch (e) {
+      container.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Could not load posts</div><div class="empty-sub">Make sure the server is running</div></div>';
+    }
+  }
+
+  function renderPost(post) {
+    const initial = (post.username || 'U')[0].toUpperCase();
+    const time = formatTime(post.createdAt);
+    const content = post.content.replace(/#(\w+)/g, '<span class="hashtag">#$1</span>');
+    const isOwn = currentUser && post.username === currentUser.username;
+
+    return `
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">${initial}</div>
+          <div class="post-user-info">
+            <div class="post-name">
+              ${post.fullName || post.username}
+              ${post.isPanVerified ? '<div class="post-verified-icon">✓</div>' : ''}
+            </div>
+            <div class="post-meta">
+              <span class="post-username">@${post.username}</span>
+              ${post.state ? `<span class="post-tag tag-state">📍 ${post.state}</span>` : ''}
+              ${post.ageBracket ? `<span class="post-tag tag-age">${post.ageBracket}</span>` : ''}
+              ${post.gender ? `<span class="post-tag tag-gender">${post.gender}</span>` : ''}
+              <span class="post-time">${time}</span>
+            </div>
+          </div>
+        </div>
+        <div class="post-content">${content}</div>
+        <div class="post-actions">
+          <button class="action-btn">💬 Reply</button>
+          <button class="action-btn">🔁 ${post.repostCount || 0}</button>
+          <button class="action-btn">❤️ ${post.likeCount || 0}</button>
+          ${!isOwn ? `<button class="action-btn" onclick="followUser('${post.username}')">➕ Follow</button>` : ''}
+        </div>
+      </div>`;
+  }
+
+  async function createPost() {
+    const content = document.getElementById('compose-text').value.trim();
+    if (!content) return;
+
+    const btn = document.getElementById('post-btn');
+    btn.disabled = true;
+    btn.textContent = 'Posting...';
+
+    try {
+      const res = await fetch(`${API}/api/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ content })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('compose-text').value = '';
+        updateCharCount();
+        showToast('Posted! 🎉', 'success');
+        loadPosts();
+      } else {
+        showToast(data.error || 'Failed to post', 'error');
+      }
+    } catch (e) {
+      showToast('Cannot connect to server', 'error');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Post';
+  }
+
+  async function followUser(username) {
+    try {
+      const res = await fetch(`${API}/api/users/${username}/follow`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(`Following @${username} ✓`, 'success');
+        if (currentUser) {
+          currentUser.followingCount = (currentUser.followingCount || 0) + 1;
+          localStorage.setItem('ss_user', JSON.stringify(currentUser));
+          document.getElementById('stat-following').textContent = currentUser.followingCount;
+        }
+      } else {
+        showToast(data.error || 'Could not follow', 'error');
+      }
+    } catch (e) {
+      showToast('Cannot connect to server', 'error');
+    }
+  }
+
+  function updateCharCount() {
+    const text = document.getElementById('compose-text').value;
+    const remaining = 280 - text.length;
+    const el = document.getElementById('char-count');
+    el.textContent = remaining;
+    el.className = 'char-count';
+    if (remaining < 50) el.classList.add('warning');
+    if (remaining < 20) el.classList.add('danger');
+    document.getElementById('post-btn').disabled = text.trim().length === 0;
+  }
+
+  function formatTime(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    const now = new Date();
+    const diff = Math.floor((now - d) / 1000);
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+  }
+
+  function showError(el, msg) {
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  let toastTimer;
+  function showToast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = `toast ${type} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  // Enter to post
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) createPost();
+  });
+</script>
+</body>
+</html>
